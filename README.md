@@ -2,7 +2,7 @@
 
 ![CI](https://img.shields.io/github/actions/workflow/status/altintasali/GTFforge/ci.yml?label=CI)
 ![License](https://img.shields.io/github/license/altintasali/GTFforge?color=blue)
-![Version](https://img.shields.io/badge/version-0.1.0--dev-blue)
+![Version](https://img.shields.io/badge/version-0.1.0-blue)
 
 **Build a replicate-supported, reference-anchored custom transcriptome from
 RNA-seq assemblies** -- a GTF you can hand straight to nf-core/rnaseq, STAR or

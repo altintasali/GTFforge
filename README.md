@@ -151,7 +151,7 @@ make sure it is visible from the compute nodes.
 ## Tool versions
 
 Pinned in `workflow/default-config/versions.yaml` and
-`workflow/environment.yaml` (CI checks the two agree): StringTie 2.2.1,
+`workflow/environment.yaml` (CI checks the two agree): StringTie 2.2.3 (as nf-core/rnaseq),
 gffcompare 0.12.6, gffread 0.12.7, MultiQC 1.33. Override in
 `input/versions.yaml`.
 

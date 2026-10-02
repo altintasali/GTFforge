@@ -5,6 +5,7 @@
 rule finalize:
     input:
         ref=REF_GTF,
+        ref_stats="results/reference/reference_stats.json",
         merged="results/merge/merged.gtf",
         classified="results/merge/classify.annotated.gtf",
         support="results/merge/support_map.tracking",
@@ -36,7 +37,8 @@ rule finalize:
         "python3 {input.script} --ref {input.ref} --merged {input.merged} "
         "--classified {input.classified} --support {input.support} "
         "--groups {params.groups} --keep-classes '{params.keep_classes}' "
-        "--keep-contigs-regex '{params.contigs}' {params.support} "
+        "--keep-contigs-regex '{params.contigs}' --ref-stats {input.ref_stats} "
+        "{params.support} "
         "--gene-lines {params.gene_lines} --out-gtf {output.gtf} "
         "--out-tsv {output.tsv} --out-stats {output.stats} "
         "--out-nfcore {output.nfcore} > {log} 2>&1"

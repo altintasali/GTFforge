@@ -28,7 +28,8 @@ GFFREAD_ENV = _write_env("gffread", [f"gffread={V['gffread']}"])
 MULTIQC_ENV = _write_env("multiqc", [f"multiqc={V['multiqc']}"])
 PYTHON_ENV = _write_env("python", ["python>=3.9"])
 
-_REPO_ROOT = os.path.dirname(os.path.abspath(workflow.basedir))
+# realpath: run directories link workflow/ to a shared checkout.
+_REPO_ROOT = os.path.dirname(os.path.realpath(workflow.basedir))
 with open(os.path.join(_REPO_ROOT, "VERSION")) as _fh:
     PIPELINE_VERSION = _fh.read().strip()
 

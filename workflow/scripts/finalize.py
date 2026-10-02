@@ -393,6 +393,7 @@ def main(argv=None):
     ap.add_argument("--groups", nargs="+", required=True)
     ap.add_argument("--keep-classes", required=True)
     ap.add_argument("--keep-contigs-regex", default="")
+    ap.add_argument("--ref-stats", default=None, help="prepare_reference.py stats to fold in")
     ap.add_argument("--no-require-support", action="store_true")
     ap.add_argument("--gene-lines", choices=["regenerate", "drop"], default="regenerate")
     ap.add_argument("--out-gtf", required=True)
@@ -414,6 +415,12 @@ def main(argv=None):
         "transcript_type": ref.key(TRANSCRIPT_TYPE_KEYS, "transcript_type"),
     }
     ref_kept, ref_gene_of, drops, n_ref_split = plan_reference(ref, keep_contig)
+    n_ref_in = len(ref.tx_gene)
+    if a.ref_stats:
+        with open(a.ref_stats) as fh:
+            prep = json.load(fh)
+        drops.update(prep["dropped"])
+        n_ref_in = prep["reference_transcripts_in"]
     ref_tx_locus = {t: next(iter(ref.tx_loci[t])) for t in ref_kept}
 
     classes = read_classes(a.classified)
@@ -468,7 +475,7 @@ def main(argv=None):
     by_group = Counter(g for gs in groups_of.values() for g in gs)
     stats = {
         "attribute_keys": keys,
-        "reference_transcripts_in": len(ref.tx_gene),
+        "reference_transcripts_in": n_ref_in,
         "reference_transcripts_kept": len(ref_kept),
         "novel_transcripts_in_merge": len(novel),
         "novel_transcripts_kept": len(novel_kept),

@@ -5,11 +5,10 @@
 # that hold every sample's data at once.
 # =============================================================================
 resources:
-  prepare_reference: {threads: 1, mem_mb: 2000, runtime: 30}
+  prepare_reference: {threads: 1, mem_mb: 16000, runtime: 60}
   prepare_fasta: {threads: 1, mem_mb: 2000, runtime: 30}
   prepare_te_gtf: {threads: 1, mem_mb: 2000, runtime: 30}
   stringtie_assemble: {threads: 4, mem_mb: 8000, runtime: 120}
-  group_inputs: {threads: 1, mem_mb: 1000, runtime: 30}
   gffcompare_group: {threads: 1, mem_mb: 8000, runtime: 120, mem_per_sample: 500}
   support_filter: {threads: 1, mem_mb: 4000, runtime: 60}
   stringtie_merge: {threads: 4, mem_mb: 16000, runtime: 120}

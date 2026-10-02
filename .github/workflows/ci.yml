@@ -1,0 +1,88 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    # Static checks only -- no conda env, reports in seconds.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install ruff
+      - name: ruff (config in pyproject.toml)
+        run: ruff check workflow/scripts workflow/scripts/gtfforge .tests
+      - name: shellcheck
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq shellcheck
+          shellcheck -S warning .tests/guards/*.sh
+      - name: guards are executable and parse
+        run: |
+          for g in .tests/guards/*.sh; do
+            [ -x "$g" ] || { echo "not executable: $g"; exit 1; }
+            bash -n "$g" || exit 1
+          done
+
+  unit:
+    # The scripts' pure functions, plus the repository consistency checks.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pytest pyyaml
+      - name: pytest
+        run: python -m pytest .tests/unit
+      - name: environment.yaml and versions.yaml agree
+        run: python .tests/check_version_sync.py
+      - name: every rule declares the script it runs
+        run: python .tests/check_script_inputs.py
+
+  test:
+    # End-to-end run on the synthetic data (config/test.yaml).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: gtfforge
+          environment-file: workflow/environment.yaml
+          channel-priority: flexible
+      - shell: bash -l {0}
+        run: snakemake --configfile config/test.yaml --cores 2
+
+  guards:
+    # Behaviour guards, one script each in .tests/guards/ -- run one locally
+    # with `.tests/guards/run.sh <number>`.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: gtfforge
+          environment-file: workflow/environment.yaml
+          channel-priority: flexible
+      - shell: bash -l {0}
+        run: .tests/guards/run.sh
+
+  flowchart:
+    # docs/pipeline-flowchart.md is generated from the rule graph; a diff means
+    # the committed diagram is stale.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: gtfforge
+          environment-file: workflow/environment.yaml
+          channel-priority: flexible
+      - shell: bash -l {0}
+        run: |
+          snakemake --configfile config/test.yaml --rulegraph | python workflow/scripts/flowchart.py --update-doc
+          git diff --exit-code -- docs/pipeline-flowchart.md

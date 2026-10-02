@@ -11,10 +11,7 @@ rule group_inputs:
         directory("results/support/{group}/inputs"),
     params:
         samples=lambda wc: GROUP_SAMPLES[wc.group],
-    threads: get_resources("group_inputs")["threads"]
-    resources:
-        mem_mb=get_resources("group_inputs")["mem_mb"],
-        runtime=get_resources("group_inputs")["runtime"],
+    localrule: True
     log:
         "results/pipeline_info/logs/group_inputs/{group}.log",
     run:

@@ -1,0 +1,71 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+description: >-
+  Merged config (workflow/default-config/*.yaml + input/config.yaml +
+  optional input/{versions,resources}.yaml).
+type: object
+additionalProperties: false
+
+properties:
+  samples:
+    type: string
+  versions:
+    type: object
+    additionalProperties: false
+    properties:
+      stringtie: {type: string}
+      gffcompare: {type: string}
+      gffread: {type: string}
+      multiqc: {type: string}
+    required: [stringtie, gffcompare, gffread, multiqc]
+  ref:
+    type: object
+    additionalProperties: false
+    properties:
+      gtf: {type: string, minLength: 1}
+      fasta: {type: string}
+      te_gtf: {type: string}
+    required: [gtf]
+  assembly:
+    type: object
+    additionalProperties: false
+    properties:
+      guided: {type: boolean}
+      min_isoform_fraction: {type: number, minimum: 0, maximum: 1}
+      min_length: {type: integer, minimum: 1}
+      min_coverage: {type: number, minimum: 0}
+      extra: {type: string}
+  support:
+    type: object
+    additionalProperties: false
+    properties:
+      min_samples: {type: integer, minimum: 1}
+      min_fraction: {type: number, minimum: 0, maximum: 1}
+      single_exon: {type: string, enum: [auto, drop, keep_stranded]}
+    required: [min_samples, min_fraction, single_exon]
+  filter:
+    type: object
+    additionalProperties: false
+    properties:
+      keep_classes:
+        type: string
+        pattern: "^[=cjeikmnopsuxyr.]*$"
+      keep_contigs_regex: {type: string}
+      require_group_support_after_merge: {type: boolean}
+    required: [keep_classes]
+  annotation:
+    type: object
+    additionalProperties: false
+    properties:
+      gene_lines: {type: string, enum: [regenerate, drop]}
+  resources:
+    type: object
+    additionalProperties:
+      type: object
+      additionalProperties: false
+      properties:
+        threads: {type: integer, minimum: 1}
+        mem_mb: {type: integer, minimum: 1}
+        runtime: {type: integer, minimum: 1}
+        mem_per_sample: {type: integer, minimum: 0}
+
+required: [samples, versions, ref, assembly, support, filter, annotation]

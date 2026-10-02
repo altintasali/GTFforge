@@ -1,0 +1,28 @@
+# Tool configuration only. GTFforge is not a Python package -- it is a
+# Snakemake workflow whose scripts are invoked by path -- so there is no
+# [project] table and nothing here is installable.
+
+[tool.ruff]
+line-length = 100
+extend-exclude = ["workflow/envs/generated", ".snakemake", "results"]
+# `snakemake` is injected into the namespace by the script: directive.
+builtins = ["snakemake"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "C4", "SIM", "RUF"]
+ignore = [
+    # Long report/help prose is wrapped by hand.
+    "E501",
+    # zip(..., strict=) is 3.10+; scripts stay 3.9-compatible (environment.yaml floor).
+    "B905",
+    # Streaming reads consumed and discarded with the process.
+    "SIM115",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Guard and test helpers import scripts by path after adjusting sys.path.
+".tests/**" = ["E402", "F841"]
+
+[tool.pytest.ini_options]
+testpaths = [".tests/unit"]
+addopts = "-q"

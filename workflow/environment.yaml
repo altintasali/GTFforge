@@ -1,0 +1,33 @@
+name: gtfforge
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  # Workflow runtime.
+  - snakemake >=8
+  # SLURM executor plugin (used by workflow/profiles/slurm).
+  - snakemake-executor-plugin-slurm
+  - conda >=24.7.1
+  - pandas
+  - pyyaml
+  - jsonschema
+
+  # Developer tooling: unit tests (.tests/unit) and guards (.tests/guards/run.sh).
+  # CI installs these separately on a bare Python; here only for local work.
+  - pytest
+  - ruff
+  # Writes the synthetic BAMs in .tests/generate_test_data.py.
+  - pysam
+
+  # Analysis tools -- installed once at env creation so the workflow runs with
+  # plain `snakemake` (no --sdm conda, no per-run env solves). Version pins
+  # mirror workflow/default-config/versions.yaml; .tests/check_version_sync.py
+  # fails CI if the two drift apart.
+  - stringtie=2.2.1
+  - gffcompare=0.12.6
+  - gffread=0.12.7
+  - bedtools=2.31.1
+  - multiqc=1.33
+  # Floor only: keeps the solver from backtracking to an ancient build without
+  # pinning the interpreter.
+  - python >=3.9

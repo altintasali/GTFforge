@@ -1,0 +1,41 @@
+# =============================================================================
+# GTFforge analysis config. Copy to input/config.yaml and edit:
+#   cp config/config.example.yaml input/config.yaml
+# Only samples: and ref.gtf are required; every other key below shows its
+# built-in default (workflow/default-config/gtfforge.yaml) and can be deleted.
+# =============================================================================
+samples: input/samples.csv
+
+ref:
+  # Reference annotation the custom transcriptome is anchored to (.gz ok).
+  # GENCODE, Ensembl and RefSeq attribute conventions are detected.
+  gtf: /path/to/gencode.vM23.primary_assembly.annotation.gtf.gz
+  # Optional: genome FASTA (.gz ok). Enables the gffread transcript-extraction
+  # check, the same step nf-core/rnaseq runs before building its indices.
+  fasta: ""
+  # Optional: TEtranscripts-style rmsk TE GTF (gene_id = subfamily,
+  # family_id, class_id). Annotates the TE at each novel transcript's start.
+  te_gtf: ""
+
+# StringTie settings, used for BAM rows of the sample sheet only.
+assembly:
+  guided: true
+  min_isoform_fraction: 0.01
+  min_length: 200
+  min_coverage: 1
+  extra: ""
+
+# Replicate support within each group:
+# kept if assembled in >= max(min_samples, ceil(n_group * min_fraction)) samples.
+support:
+  min_samples: 2
+  min_fraction: 0.33
+  single_exon: auto   # auto | drop | keep_stranded
+
+filter:
+  keep_classes: "jkxuioy"
+  keep_contigs_regex: ""   # e.g. "^chr" to drop GL*/JH* scaffolds
+  require_group_support_after_merge: true
+
+annotation:
+  gene_lines: regenerate   # regenerate | drop

@@ -1,0 +1,40 @@
+# =============================================================================
+# BUILT-IN DEFAULT analysis settings -- part of the workflow, loaded first.
+# Your input/config.yaml is deep-merged on top, so it only needs the keys you
+# want to change (plus samples: and ref:). See config/config.example.yaml.
+# =============================================================================
+ref:
+  fasta: ""   # optional: enables the gffread transcript-extraction check
+  te_gtf: ""  # optional: enables TE-at-TSS annotation of novel transcripts
+
+# StringTie settings for BAM rows of the sample sheet (GTF rows are used as given).
+assembly:
+  guided: true              # -G <ref.gtf>: reference-guided assembly
+  min_isoform_fraction: 0.01  # -f
+  min_length: 200           # -m
+  min_coverage: 1           # -c
+  extra: ""
+
+# Replicate support, evaluated within each group of the sample sheet.
+support:
+  # keep a transcript seen in >= max(min_samples, ceil(n_group * min_fraction))
+  min_samples: 2
+  min_fraction: 0.33
+  # auto: drop single-exon transfrags unless every sample of the group is
+  # stranded; drop: always; keep_stranded: keep those that have a strand.
+  single_exon: auto
+
+filter:
+  # gffcompare class codes allowed for novel transcripts
+  # (= j k: new isoforms of reference genes; u x i o y: novel genes;
+  #  c e m n p r s are dropped by default: fragments, pre-mRNA, run-on, repeats)
+  keep_classes: "jkxuioy"
+  # "" keeps every contig; e.g. "^chr([0-9]+|X|Y|M)$" drops unplaced scaffolds
+  keep_contigs_regex: ""
+  # merged transcripts must match a group-supported intron chain exactly
+  require_group_support_after_merge: true
+
+annotation:
+  # regenerate: gene lines span every transcript of the gene (incl. novel);
+  # drop: write no gene lines
+  gene_lines: regenerate

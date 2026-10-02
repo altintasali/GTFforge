@@ -1,0 +1,3 @@
+chrT	rmsk	exon	19901	20100	.	+	.	gene_id "MT2_Mm"; transcript_id "MT2_Mm_dup1"; family_id "ERVL"; class_id "LTR";
+chrT	rmsk	exon	7101	7400	.	+	.	gene_id "B2_Mm1a"; transcript_id "B2_Mm1a_dup2"; family_id "B2"; class_id "SINE";
+chrT	rmsk	exon	35001	36000	.	-	.	gene_id "L1Md_A"; transcript_id "L1Md_A_dup3"; family_id "L1"; class_id "LINE";

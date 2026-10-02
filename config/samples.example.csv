@@ -1,0 +1,8 @@
+# One row per sample. group = replicate group (support is counted within it).
+# Give gtf (an existing per-sample assembly, e.g. StringTie/nf-core output)
+# OR bam (GTFforge assembles it). strandedness: unstranded|forward|reverse.
+sample,group,gtf,bam,strandedness
+GV_WT_01,GV_WT,/path/to/GV_WT_01.transcripts.gtf,,unstranded
+GV_WT_02,GV_WT,/path/to/GV_WT_02.transcripts.gtf,,unstranded
+GV_KO_01,GV_KO,,/path/to/GV_KO_01.markdup.sorted.bam,unstranded
+GV_KO_02,GV_KO,,/path/to/GV_KO_02.markdup.sorted.bam,unstranded

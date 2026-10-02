@@ -1,0 +1,31 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+description: row of input/samples.csv
+type: object
+
+properties:
+  sample:
+    type: string
+    description: unique sample identifier
+  group:
+    type: string
+    description: >-
+      Replicate group (e.g. <stage>_<genotype>). Replicate support is counted
+      within each group, so a transcript specific to one condition can still
+      be kept.
+  gtf:
+    type: [string, "null"]
+    description: per-sample assembly GTF (e.g. StringTie output). Give gtf OR bam.
+  bam:
+    type: [string, "null"]
+    description: coordinate-sorted BAM; GTFforge assembles it with StringTie. Give gtf OR bam.
+  strandedness:
+    type: [string, "null"]
+    enum: [unstranded, forward, reverse, null]
+    description: >-
+      Library strandedness (nf-core vocabulary). Sets StringTie's --fr/--rf for
+      BAM rows and whether single-exon transcripts can be kept
+      (support.single_exon: auto). Empty = unstranded.
+
+required:
+  - sample
+  - group

@@ -1,0 +1,29 @@
+# Custom MultiQC configuration, passed to the multiqc rule with -c (and an
+# input of it, so editing this file rebuilds the report).
+
+title: "GTFforge"
+comment: >-
+  Replicate-supported, reference-anchored custom transcriptome. The GTF is at
+  results/gtfforge.gtf; see results/README_nfcore.txt for the nf-core/rnaseq
+  flags it needs.
+
+# Versions come from results/versions/gtfforge_mqc_versions.yml only.
+disable_version_detection: true
+
+# Note the missing trailing "/*": MultiQC matches fn_ignore_paths against the
+# directory path.
+fn_ignore_paths:
+  - "*/pipeline_info/logs"
+  - "*/pipeline_info/benchmarks"
+fn_ignore_files:
+  - "*.gtf"
+  - "*.fa"
+  - "*.tracking"
+
+report_section_order:
+  gtfforge:
+    order: 100
+  gtfforge_config_used:
+    order: -1000
+  software_versions:
+    order: -1100

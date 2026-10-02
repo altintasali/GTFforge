@@ -1,0 +1,25 @@
+# =============================================================================
+# BUILT-IN DEFAULT per-rule resources (threads / mem_mb / runtime in minutes).
+# Override in input/resources.yaml. Rules not listed get 1 thread, 4000 MB,
+# 60 min. mem_per_sample (where present) is added once per sample, for rules
+# that hold every sample's data at once.
+# =============================================================================
+resources:
+  prepare_reference: {threads: 1, mem_mb: 2000, runtime: 30}
+  prepare_fasta: {threads: 1, mem_mb: 2000, runtime: 30}
+  prepare_te_gtf: {threads: 1, mem_mb: 2000, runtime: 30}
+  stringtie_assemble: {threads: 4, mem_mb: 8000, runtime: 120}
+  group_inputs: {threads: 1, mem_mb: 1000, runtime: 30}
+  gffcompare_group: {threads: 1, mem_mb: 8000, runtime: 120, mem_per_sample: 500}
+  support_filter: {threads: 1, mem_mb: 4000, runtime: 60}
+  stringtie_merge: {threads: 4, mem_mb: 16000, runtime: 120}
+  gffcompare_classify: {threads: 1, mem_mb: 8000, runtime: 60}
+  support_map: {threads: 1, mem_mb: 8000, runtime: 60}
+  finalize: {threads: 1, mem_mb: 16000, runtime: 120}
+  te_tss: {threads: 1, mem_mb: 16000, runtime: 60}
+  gffread_extract: {threads: 1, mem_mb: 8000, runtime: 60}
+  validate_gtf: {threads: 1, mem_mb: 8000, runtime: 60}
+  qc_mqc: {threads: 1, mem_mb: 2000, runtime: 30}
+  config_used: {threads: 1, mem_mb: 500, runtime: 10}
+  software_versions: {threads: 1, mem_mb: 500, runtime: 10}
+  multiqc: {threads: 1, mem_mb: 4000, runtime: 30}

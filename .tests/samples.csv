@@ -1,0 +1,9 @@
+sample,group,gtf,bam,strandedness
+ctrl_1,ctrl,.tests/assemblies/ctrl_1.gtf,,unstranded
+ctrl_2,ctrl,.tests/assemblies/ctrl_2.gtf,,unstranded
+ctrl_3,ctrl,.tests/assemblies/ctrl_3.gtf,,unstranded
+trt_1,trt,.tests/assemblies/trt_1.gtf,,unstranded
+trt_2,trt,.tests/assemblies/trt_2.gtf,,unstranded
+trt_3,trt,.tests/assemblies/trt_3.gtf,,unstranded
+bam_1,bam,,.tests/bams/bam_1.bam,unstranded
+bam_2,bam,,.tests/bams/bam_2.bam,unstranded

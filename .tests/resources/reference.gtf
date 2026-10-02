@@ -1,0 +1,22 @@
+##description: GTFforge test reference (GENCODE-style attributes)
+chrT	HAVANA	gene	1001	3200	.	+	.	gene_id "ENSGT0000001.1"; gene_type "protein_coding"; gene_name "G1";
+chrT	HAVANA	transcript	1001	3200	.	+	.	gene_id "ENSGT0000001.1"; transcript_id "ENSTT0000001.1"; gene_type "protein_coding"; gene_name "G1"; transcript_type "protein_coding"; transcript_name "G1-201";
+chrT	HAVANA	exon	1001	1200	.	+	.	gene_id "ENSGT0000001.1"; transcript_id "ENSTT0000001.1"; gene_type "protein_coding"; gene_name "G1"; transcript_type "protein_coding"; transcript_name "G1-201"; exon_number "1";
+chrT	HAVANA	exon	2001	2200	.	+	.	gene_id "ENSGT0000001.1"; transcript_id "ENSTT0000001.1"; gene_type "protein_coding"; gene_name "G1"; transcript_type "protein_coding"; transcript_name "G1-201"; exon_number "2";
+chrT	HAVANA	exon	3001	3200	.	+	.	gene_id "ENSGT0000001.1"; transcript_id "ENSTT0000001.1"; gene_type "protein_coding"; gene_name "G1"; transcript_type "protein_coding"; transcript_name "G1-201"; exon_number "3";
+chrT	HAVANA	gene	6001	7300	.	+	.	gene_id "ENSGT0000002.1"; gene_type "protein_coding"; gene_name "G2";
+chrT	HAVANA	transcript	6001	7300	.	+	.	gene_id "ENSGT0000002.1"; transcript_id "ENSTT0000002.1"; gene_type "protein_coding"; gene_name "G2"; transcript_type "protein_coding"; transcript_name "G2-201";
+chrT	HAVANA	exon	6001	6300	.	+	.	gene_id "ENSGT0000002.1"; transcript_id "ENSTT0000002.1"; gene_type "protein_coding"; gene_name "G2"; transcript_type "protein_coding"; transcript_name "G2-201"; exon_number "1";
+chrT	HAVANA	exon	7001	7300	.	+	.	gene_id "ENSGT0000002.1"; transcript_id "ENSTT0000002.1"; gene_type "protein_coding"; gene_name "G2"; transcript_type "protein_coding"; transcript_name "G2-201"; exon_number "2";
+chrT	HAVANA	gene	11001	13200	.	-	.	gene_id "ENSGT0000003.1"; gene_type "protein_coding"; gene_name "G3";
+chrT	HAVANA	transcript	11001	13200	.	-	.	gene_id "ENSGT0000003.1"; transcript_id "ENSTT0000003.1"; gene_type "protein_coding"; gene_name "G3"; transcript_type "protein_coding"; transcript_name "G3-201";
+chrT	HAVANA	exon	11001	11200	.	-	.	gene_id "ENSGT0000003.1"; transcript_id "ENSTT0000003.1"; gene_type "protein_coding"; gene_name "G3"; transcript_type "protein_coding"; transcript_name "G3-201"; exon_number "1";
+chrT	HAVANA	exon	12001	12300	.	-	.	gene_id "ENSGT0000003.1"; transcript_id "ENSTT0000003.1"; gene_type "protein_coding"; gene_name "G3"; transcript_type "protein_coding"; transcript_name "G3-201"; exon_number "2";
+chrT	HAVANA	exon	13001	13200	.	-	.	gene_id "ENSGT0000003.1"; transcript_id "ENSTT0000003.1"; gene_type "protein_coding"; gene_name "G3"; transcript_type "protein_coding"; transcript_name "G3-201"; exon_number "3";
+chrT	HAVANA	gene	16001	16500	.	+	.	gene_id "ENSGT0000004.1"; gene_type "protein_coding"; gene_name "G4";
+chrT	HAVANA	transcript	16001	16500	.	+	.	gene_id "ENSGT0000004.1"; transcript_id "ENSTT0000004.1"; gene_type "protein_coding"; gene_name "G4"; transcript_type "protein_coding"; transcript_name "G4-201";
+chrT	HAVANA	exon	16001	16500	.	+	.	gene_id "ENSGT0000004.1"; transcript_id "ENSTT0000004.1"; gene_type "protein_coding"; gene_name "G4"; transcript_type "protein_coding"; transcript_name "G4-201"; exon_number "1";
+unplacedT	HAVANA	gene	1001	2200	.	+	.	gene_id "ENSGT0000005.1"; gene_type "protein_coding"; gene_name "G5";
+unplacedT	HAVANA	transcript	1001	2200	.	+	.	gene_id "ENSGT0000005.1"; transcript_id "ENSTT0000005.1"; gene_type "protein_coding"; gene_name "G5"; transcript_type "protein_coding"; transcript_name "G5-201";
+unplacedT	HAVANA	exon	1001	1200	.	+	.	gene_id "ENSGT0000005.1"; transcript_id "ENSTT0000005.1"; gene_type "protein_coding"; gene_name "G5"; transcript_type "protein_coding"; transcript_name "G5-201"; exon_number "1";
+unplacedT	HAVANA	exon	2001	2200	.	+	.	gene_id "ENSGT0000005.1"; transcript_id "ENSTT0000005.1"; gene_type "protein_coding"; gene_name "G5"; transcript_type "protein_coding"; transcript_name "G5-201"; exon_number "2";

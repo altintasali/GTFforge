@@ -1,0 +1,22 @@
+# Tiny end-to-end test on the synthetic data in .tests/ (regenerate with
+# `python3 .tests/generate_test_data.py`). Run from the repo root:
+#   snakemake --configfile config/test.yaml --cores 2
+samples: .tests/samples.csv
+
+ref:
+  gtf: .tests/resources/reference.gtf
+  fasta: .tests/resources/genome.fa
+  te_gtf: .tests/resources/te.gtf
+
+# Tiny footprint so the test runs on a laptop or in CI.
+resources:
+  stringtie_assemble: {threads: 1, mem_mb: 500, runtime: 5}
+  gffcompare_group: {threads: 1, mem_mb: 500, runtime: 5, mem_per_sample: 0}
+  stringtie_merge: {threads: 1, mem_mb: 500, runtime: 5}
+  gffcompare_classify: {threads: 1, mem_mb: 500, runtime: 5}
+  support_map: {threads: 1, mem_mb: 500, runtime: 5}
+  finalize: {threads: 1, mem_mb: 500, runtime: 5}
+  te_tss: {threads: 1, mem_mb: 500, runtime: 5}
+  gffread_extract: {threads: 1, mem_mb: 500, runtime: 5}
+  validate_gtf: {threads: 1, mem_mb: 500, runtime: 5}
+  multiqc: {threads: 1, mem_mb: 1000, runtime: 5}

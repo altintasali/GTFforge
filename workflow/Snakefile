@@ -1,0 +1,81 @@
+import os
+import re
+
+from snakemake.utils import min_version
+
+min_version("8.0")
+
+
+# Built-in defaults, part of the workflow itself -- override them from your
+# own input/config.yaml (or input/versions.yaml / input/resources.yaml).
+configfile: "workflow/default-config/gtfforge.yaml"
+configfile: "workflow/default-config/versions.yaml"
+configfile: "workflow/default-config/resources.yaml"
+
+# Your analysis config. input/ is gitignored: create it from the templates
+#   cp config/config.example.yaml input/config.yaml
+#   cp config/samples.example.csv input/samples.csv
+# or pass your own with --configfile.
+if os.path.exists("input/config.yaml"):
+
+    configfile: "input/config.yaml"
+
+elif not workflow.overwrite_configfiles:
+    raise RuntimeError(
+        "input/config.yaml is missing and no --configfile was given.\n"
+        "Copy the templates and fill them in:\n"
+        "  cp config/config.example.yaml input/config.yaml\n"
+        "  cp config/samples.example.csv input/samples.csv\n"
+        "then edit the paths/options and re-run."
+    )
+
+if os.path.exists("input/versions.yaml"):
+
+    configfile: "input/versions.yaml"
+
+
+if os.path.exists("input/resources.yaml"):
+
+    configfile: "input/resources.yaml"
+
+
+include: "rules/common.smk"
+
+
+# Pin the wildcards to real names. Unconstrained, {group} in
+# results/support/{group}/... would also match nested paths, and sample/group
+# names routinely contain regex metacharacters (dots), hence re.escape.
+wildcard_constraints:
+    sample="|".join(re.escape(s) for s in SAMPLES),
+    group="|".join(re.escape(g) for g in GROUPS),
+
+
+include: "rules/ref.smk"
+if BAM_SAMPLES:
+    include: "rules/assemble.smk"
+include: "rules/support.smk"
+include: "rules/merge.smk"
+include: "rules/finalize.smk"
+if TE_ENABLED:
+    include: "rules/te.smk"
+include: "rules/validate.smk"
+include: "rules/software_versions.smk"
+include: "rules/qc.smk"
+
+
+rule all:
+    input:
+        all_outputs(),
+
+
+rule assemble_only:
+    # Convenience target: just the StringTie assemblies of BAM rows.
+    input:
+        expand("results/assembly/{sample}.gtf", sample=BAM_SAMPLES),
+
+
+rule support_only:
+    # Convenience target: per-group replicate support, to inspect the support
+    # histograms (results/support/*/support_stats.json) before merging.
+    input:
+        expand("results/support/{group}/support_stats.json", group=GROUPS),

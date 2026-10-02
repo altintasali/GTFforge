@@ -1,0 +1,12 @@
+# =============================================================================
+# BUILT-IN DEFAULT tool versions. Override in input/versions.yaml (deep-merged,
+# so a partial override such as `versions: {stringtie: "2.2.3"}` is enough).
+# Each is rendered into its own env under workflow/envs/generated/; pins must
+# match workflow/environment.yaml (checked by .tests/check_version_sync.py).
+# =============================================================================
+versions:
+  # 2.2.1 to match TEtranscripts-pipe's assembly screen.
+  stringtie: "2.2.1"
+  gffcompare: "0.12.6"
+  gffread: "0.12.7"
+  multiqc: "1.33"
